@@ -1,0 +1,3 @@
+agentkit @ git+https://github.com/silvaan/agentic-ai
+python-dotenv
+ipykernel
