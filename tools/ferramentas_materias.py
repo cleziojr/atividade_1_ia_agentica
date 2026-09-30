@@ -127,6 +127,19 @@ def comparar_materias_aluno(aluno_id: int) -> str:
 
     Use apenas dessa forma
     """
+
+    if isinstance(aluno_id, dict):
+        print("[DEBUG] - aluno_id é dict")
+        aluno_id = aluno_id["aluno_id"]
+        if isinstance(aluno_id, str):
+            print("[DEBUG] - aluno_id é string")
+            try:
+                aluno_id = int(aluno_id)
+            except ValueError:
+                print("Erro ao parsear aluno_id")
+
+        print(f"[DEBUG] - aluno_id convertido para {type(aluno_id)}")
+
     resultado = _elegibilidade(aluno_id)
     if resultado is None:
         return f"aluno_id {aluno_id} não encontrado no histórico."
