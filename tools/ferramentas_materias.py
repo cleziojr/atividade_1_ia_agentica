@@ -8,7 +8,7 @@ from pathlib import Path
 
 from agentkit.tools import tool
 
-DIR_DADOS = Path(__file__).resolve().parent / "dados"
+DIR_DADOS = Path(__file__).resolve().parent.parent / "dados"
 
 _SITUACOES_APROVADAS = {"APROVADO"}
 
