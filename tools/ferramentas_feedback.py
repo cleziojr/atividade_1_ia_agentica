@@ -1,7 +1,5 @@
 """Tool do agentkit que registra o feedback do aluno sobre a grade proposta."""
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
 
