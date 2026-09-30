@@ -1,3 +1,4 @@
+import sys
 from typing import Literal
 
 from agentkit.tools import tool
@@ -54,7 +55,6 @@ def classifica_intencao_usuario(input_usuario: str) -> IntencaoUsuario:
   
 
 @tool
-def encerra_planejamento() -> str:
-  """Encerra a conversa quando o planejamento estiver concluído ou o usuário pedir para parar."""
-
-  return "ENCERRADO: não chame mais ferramentas; responda ao usuário apenas com a mensagem final de despedida."
+def encerra_planejamento() -> None:
+  """Encerra conversa conforme o LLM achar necessário"""
+  sys.exit()
