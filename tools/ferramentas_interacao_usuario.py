@@ -1,5 +1,4 @@
 from typing import Literal
-import sys
 
 from agentkit.tools import tool
 from pydantic import BaseModel
@@ -55,7 +54,6 @@ def classifica_intencao_usuario(input_usuario: str) -> IntencaoUsuario:
   
 
 @tool
-def encerra_planejamento() -> None:
-  """Encerra conversa conforme o LLM achar necessário"""
-  sys.exit()
-  return
+def encerra_planejamento() -> str:
+  """Encerra o atendimento quando o discente confirma que o planejamento está concluído."""
+  return "Atendimento encerrado. Planejamento de matrícula concluído."
