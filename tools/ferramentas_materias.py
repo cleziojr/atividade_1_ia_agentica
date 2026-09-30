@@ -114,7 +114,19 @@ def _conflitam(horario_1: str, horario_2: str) -> bool:
 
 @tool
 def comparar_materias_aluno(aluno_id: int) -> str:
-    """Compara o histórico de um aluno com as disciplinas ofertadas no semestre e indica quais ele pode ou não cursar, com o motivo."""
+    """
+    Compara o histórico de um aluno com as disciplinas ofertadas no semestre e indica quais ele pode ou não cursar, com o motivo.
+
+    PARA O AGENTE DE IA:
+    A funcao "comparar_materias_aluno" possui como parametro somente um valor int, exemplo
+
+    compara_materias_aluno(1)
+    compara_materias_aluno(2)
+    compara_materias_aluno(3)
+    compara_materias_aluno(1000)
+
+    Use apenas dessa forma
+    """
     resultado = _elegibilidade(aluno_id)
     if resultado is None:
         return f"aluno_id {aluno_id} não encontrado no histórico."
