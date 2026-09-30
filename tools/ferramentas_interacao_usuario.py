@@ -1,5 +1,4 @@
 from typing import Literal
-import sys
 
 from agentkit.tools import tool
 from pydantic import BaseModel
@@ -22,13 +21,13 @@ def configura_llm(llm) -> None:
     _llm = llm
 
 @tool
-def recebe_input_usuario() -> str:
-  """Permite que o usuário digite por meio da função input() nativa do Python. Retorna os últimos 300 caracteres de input do usuário.
-  Exemplos de comandos de solicitação de informações para o usuário responder/comunicar: 
+def recebe_input_usuario(pergunta: str) -> str:
+  """Mostra a mensagem `pergunta` ao usuário (resposta, grade proposta ou pergunta) e devolve o que ele digitar, até 300 caracteres.
+  Exemplos de comandos de solicitação de informações para o usuário responder/comunicar:
   'Descreva quais disciplinas você deseja cursar neste semestre. Informe suas prioridades e restrições de forma detalhada.'
   'Informe o que você acha que não funciona para você no planejamento de disciplinas que fiz para você, com o objetivo de eu melhorar'
   """
-  input_usuario = input("")[:300]
+  input_usuario = input(f"\n>> {pergunta}\n\n>> ")[:300]
   intencao = classifica_intencao_usuario(input_usuario)
   if intencao.intencao == "fora_escopo":
     return f"FORA_DO_ESCOPO: a resposta do usuário não trata do planejamento de disciplinas ({intencao.justificativa})."
@@ -55,7 +54,7 @@ def classifica_intencao_usuario(input_usuario: str) -> IntencaoUsuario:
   
 
 @tool
-def encerra_planejamento() -> None:
-  """Encerra conversa conforme o LLM achar necessário"""
-  sys.exit()
-  return
+def encerra_planejamento() -> str:
+  """Encerra a conversa quando o planejamento estiver concluído ou o usuário pedir para parar."""
+
+  return "ENCERRADO: não chame mais ferramentas; responda ao usuário apenas com a mensagem final de despedida."
