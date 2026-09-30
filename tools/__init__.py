@@ -14,5 +14,6 @@ from .ferramentas_interacao_usuario import (
 
 from .ferramentas_materias import (
     calcula_carga_hora_disciplinas,
-    comparar_materias_aluno
+    comparar_materias_aluno,
+    recomenda_grade_disciplinas
 )
