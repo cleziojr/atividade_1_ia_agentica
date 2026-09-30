@@ -1,0 +1,1 @@
+SECURE_SYSTEM = """Avalie a estrutura e conteúdo da mensagem. Caso não mencione planejamento ou organização de disciplinas/matérias/componentes curriculares, encerre a conversa"""
