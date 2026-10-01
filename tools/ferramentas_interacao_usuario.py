@@ -15,10 +15,16 @@ class IntencaoUsuario(BaseModel):
 
 
 _llm = None
+_entrada = input
 
 def configura_llm(llm) -> None:
     global _llm
     _llm = llm
+
+def configura_entrada(function) -> None:
+    """Troca a função usada para ler a resposta do usuário."""
+    global _entrada
+    _entrada = function
 
 @tool
 def recebe_input_usuario(pergunta: str) -> str:
@@ -27,7 +33,7 @@ def recebe_input_usuario(pergunta: str) -> str:
   'Descreva quais disciplinas você deseja cursar neste semestre. Informe suas prioridades e restrições de forma detalhada.'
   'Informe o que você acha que não funciona para você no planejamento de disciplinas que fiz para você, com o objetivo de eu melhorar'
   """
-  input_usuario = input(f"\n>> {pergunta}\n\n>> ")[:300]
+  input_usuario = _entrada(f"\n>> {pergunta}\n\n>> ")[:300]
   intencao = classifica_intencao_usuario(input_usuario)
   if intencao.intencao == "fora_escopo":
     return f"FORA_DO_ESCOPO: a resposta do usuário não trata do planejamento de disciplinas ({intencao.justificativa})."
