@@ -7,6 +7,7 @@ from .ferramentas_feedback import (
 )
 from .ferramentas_interacao_usuario import (
     configura_llm,
+    configura_entrada,
     recebe_input_usuario,
     classifica_intencao_usuario,
     encerra_planejamento
