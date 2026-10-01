@@ -72,10 +72,22 @@ def _prerequisito_atendido(expressao: str, aprovadas: set[str]) -> bool:
     return expr()
 
 
+def _normaliza_aluno_id(aluno_id) -> int | None:
+    """Aceita o aluno_id como int, str ou {'aluno_id': ...}, pois o modelo às vezes
+    envia o número como texto ou dentro de um dicionário. Devolve int ou None."""
+    if isinstance(aluno_id, dict):
+        aluno_id = aluno_id.get("aluno_id")
+    try:
+        return int(aluno_id)
+    except (TypeError, ValueError):
+        return None
+
+
 def _elegibilidade(aluno_id: int) -> tuple[dict, list[dict], list[dict], list[str]] | None:
     """Classifica as ofertadas em pode cursar / falta pré-requisito / já aprovado, para um aluno."""
+    aluno_id = _normaliza_aluno_id(aluno_id)
     alunos = _carregar_historico()
-    if aluno_id not in alunos:
+    if aluno_id is None or aluno_id not in alunos:
         return None
 
     aluno = alunos[aluno_id]
@@ -126,24 +138,12 @@ def comparar_materias_aluno(aluno_id: int) -> str:
     Use apenas dessa forma
     """
 
-    if isinstance(aluno_id, dict):
-        print("[DEBUG] - aluno_id é dict")
-        aluno_id = aluno_id["aluno_id"]
-        if isinstance(aluno_id, str):
-            print("[DEBUG] - aluno_id é string")
-            try:
-                aluno_id = int(aluno_id)
-            except ValueError:
-                print("Erro ao parsear aluno_id")
-
-        print(f"[DEBUG] - aluno_id convertido para {type(aluno_id)}")
-
     resultado = _elegibilidade(aluno_id)
     if resultado is None:
         return f"aluno_id {aluno_id} não encontrado no histórico."
     aluno, pode_cursar, falta_prerequisito, ja_aprovado = resultado
 
-    linhas = [f"Aluno: {aluno['nome']} (id {aluno_id})", ""]
+    linhas = [f"Aluno: {aluno['nome']} (id {_normaliza_aluno_id(aluno_id)})", ""]
 
     linhas.append(f"PODE CURSAR ({len(pode_cursar)}):")
     for m in pode_cursar:
